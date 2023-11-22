@@ -290,7 +290,7 @@ int main(int argc, char * argv[]) {
     std::string scan_mode;
     float max_distance;
     double scan_frequency;
-    int min,max;
+    float min,max;
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan_front", 1000);
     ros::NodeHandle nh_private("~");
@@ -306,10 +306,10 @@ int main(int argc, char * argv[]) {
     nh_private.param<bool>("initial_reset", initial_reset, false);
     nh_private.param<bool>("angle_compensate", angle_compensate, false);
     nh_private.param<std::string>("scan_mode", scan_mode, std::string());
-    nh_private.param<int>("min", min, 0);
-    nh_private.param<int>("max", max, 360);
-    ROS_INFO("min %d",min);
-    ROS_INFO("max %d",max);
+    nh_private.param<float>("min", min, 0.0);
+    nh_private.param<float>("max", max, 360.0);
+    ROS_INFO("min %f",min);
+    ROS_INFO("max %f",max);
     if(channel_type == "udp"){
         nh_private.param<double>("scan_frequency", scan_frequency, 20.0);
     }
@@ -472,8 +472,8 @@ int main(int argc, char * argv[]) {
                 continue;
             }
             op_result = drv->ascendScanData(nodes, count);
-            float angle_min = DEG2RAD(0.0f);
-            float angle_max = DEG2RAD(360.0f);
+            float angle_min = DEG2RAD(min);
+            float angle_max = DEG2RAD(max);
             if (op_result == SL_RESULT_OK) {
                 if (angle_compensate) {
                     const int angle_compensate_nodes_count = 360*angle_compensate_multiple;
