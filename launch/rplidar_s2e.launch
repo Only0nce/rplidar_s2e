@@ -19,5 +19,7 @@
   <param name="angle_compensate"    type="bool"   value="true"/>
   <param name="scan_mode"           type="string" value="Sensitivity"/>
   <param name="scan_frequency"      type="int"    value="10"/>
+  <param name="min"      type="int"    value="10"/>
+  <param name="max"      type="int"    value="180"/>
   </node>
 </launch>

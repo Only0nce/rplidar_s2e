@@ -290,6 +290,7 @@ int main(int argc, char * argv[]) {
     std::string scan_mode;
     float max_distance;
     double scan_frequency;
+    int min,max;
     ros::NodeHandle nh;
     ros::Publisher scan_pub = nh.advertise<sensor_msgs::LaserScan>("scan_back", 1000);
     ros::NodeHandle nh_private("~");
@@ -305,6 +306,10 @@ int main(int argc, char * argv[]) {
     nh_private.param<bool>("initial_reset", initial_reset, false);
     nh_private.param<bool>("angle_compensate", angle_compensate, false);
     nh_private.param<std::string>("scan_mode", scan_mode, std::string());
+    nh_private.param<int>("min", min, 0);
+    nh_private.param<int>("max", max, 360);
+    ROS_INFO("min %d",min);
+    ROS_INFO("max %d",max);
     if(channel_type == "udp"){
         nh_private.param<double>("scan_frequency", scan_frequency, 20.0);
     }
